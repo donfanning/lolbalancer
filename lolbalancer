@@ -90,7 +90,7 @@ do
             ipvsadm -d -t ${SOURCE} -r ${SERVER}
         elif [[ ${line:0:1} == "+" ]]; then
             SERVER=${line:(1)}
-            until $(curl --output /dev/null --silent http://${SERVER}); do
+            until $(curl --output /dev/null --silent --max-time 3 http://${SERVER}); do
               echo "Waiting for healthcheck to pass... for ${SERVER}"
               sleep 5
 	    done
